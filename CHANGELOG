@@ -1,0 +1,11 @@
+*****************************************************************
+** C64mini arcade2usb converter
+** https://www.tsb.space/projects/c64-mini-arcade2usb-converter/
+*****************************************************************
+
+** v1.0 - 13 January 2019
+ - Initial release
+ 
+** v1.1 - 19 April 2019
+ + Added button A..C (for load/save saved games)
++ New case top design
