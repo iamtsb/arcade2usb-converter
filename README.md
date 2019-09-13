@@ -12,5 +12,3 @@ See change log for history.
 Documentation
 =============
 Full documentation can be found on https://www.tsb.space/projects/c64-mini-arcade2usb-converter/
-
-[![Feature Requests](https://feathub.com/berrydejager/TryOut?format=svg)](https://feathub.com/berrydejager/TryOut)
