@@ -11,7 +11,7 @@
  *  Licensed under the MIT License. See LICENSE file in the project root for full license information.  
  */
 
-#include "joystick.h" 
+#include "joystick.hpp" 
 
 // define buttons
 const int pin_joystick_up = 2;
