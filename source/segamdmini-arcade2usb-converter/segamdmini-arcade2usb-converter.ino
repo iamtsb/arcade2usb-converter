@@ -1,7 +1,7 @@
 // Interface with a 3-button Sega Mega Drive Controller,
 // Converts button presses to USB joystick output
 
-#include "joystick.hpp"
+#include "joystick.h"
 
 // define the arduino input pin numbers
 const int upPin = 2;        // UP
@@ -29,64 +29,58 @@ void loop()
 
   // Start by putting SELECT HIGH.
   digitalWrite(selectPin, HIGH);
+  delay(2);
 
   // UP-Button reading
   if (digitalRead(upPin) == LOW) {
-    Serial.println("u");
     Joystick.up();
   }
     
   // DOWN-Button reading
   if (digitalRead(downPin) == LOW) {
-    Serial.println("d");
     Joystick.down();
   }
 
   // LEFT-Button reading
   if (digitalRead(leftPin) == LOW) {
-    Serial.println("l");    
     Joystick.left();
   }
 
   // RIGHT-Button reading
   if (digitalRead(rightPin) == LOW) {
-    Serial.println("r");    
     Joystick.right();
   }
 
   // B-Button reading
   if (digitalRead(abPin) == LOW) {
-    Serial.println("B");    
     Joystick.button_press(B);
   }
 
   // C-Button reading
   if (digitalRead(startcPin) == LOW) {
-    Serial.println("C");    
-    Joystick.button_press(C);
+    Joystick.start_press(C);
   }
 
   // Pull SELECT low
   digitalWrite(selectPin, LOW);
+  delay(2);
 
   // Make all possible readings when SELECT HIGH:
   // START, A
 
   // A-Button reading
   if (digitalRead(abPin) == LOW) {
-    Serial.println("A");    
     Joystick.button_press(A);
   }
 
   // START-Button reading
   if (digitalRead(startcPin) == LOW) {
-    Serial.println("START");    
-    Joystick.start_press();
+    Joystick.start_press(START);
   }
 
   // update usb data
   Joystick.usb_update();
 
-//  // delay 20 ms
-//  delay(1);
+  // delay 20 ms
+  delay(10);
 }

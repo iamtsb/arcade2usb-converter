@@ -17,10 +17,10 @@
 #include "HID.h"
 
 // define output bits 
-static const uint8_t START   = B00010000; // 0x10
-static const uint8_t A       = B01001111; // 0x4f
-static const uint8_t B       = B00101111; // 0x2f
-static const uint8_t C       = B00011111; // 0x1f
+static const uint8_t A       = 0x4f;
+static const uint8_t B       = 0x2f;
+static const uint8_t START   = 0x20;
+static const uint8_t C       = 0x02;
 
 //================================================================================
 //  Joystick
@@ -45,7 +45,7 @@ class Joystick_
     void down();
     void left();
     void button_press(uint8_t b);
-    void start_press();
+    void start_press(uint8_t b);
     void usb_update();
 };
 extern Joystick_ Joystick;
