@@ -3,10 +3,10 @@
 
    Joystick routines to handle arcade to usb conversion
 
-   Version 1.1 (See CHANGELOG)
-   Release date: 2019-04-19
+   Version 1.2 (See CHANGELOG)
+   Release date: 2020-06-07
 
-   Written & released by M.F. Wieland (TSB)
+   Written & released by W.Bovelander (The Highlander)
 
     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 */

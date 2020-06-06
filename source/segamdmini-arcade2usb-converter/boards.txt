@@ -280,14 +280,14 @@ megaADK.build.variant=mega
 ##############################################################
 
 leonardo.name=Arduino Leonardo
-leonardo.vid.0=0x0079
-leonardo.pid.0=0x0006
-leonardo.vid.1=0x0079
-leonardo.pid.1=0x0006
-leonardo.vid.2=0x0079
-leonardo.pid.2=0x0006
-leonardo.vid.3=0x0079
-leonardo.pid.3=0x0006
+leonardo.vid.0=0x2341
+leonardo.pid.0=0x0036
+leonardo.vid.1=0x2341
+leonardo.pid.1=0x8036
+leonardo.vid.2=0x2A03
+leonardo.pid.2=0x0036
+leonardo.vid.3=0x2A03
+leonardo.pid.3=0x8036
 
 leonardo.upload.tool=avrdude
 leonardo.upload.protocol=avr109
@@ -308,9 +308,9 @@ leonardo.bootloader.lock_bits=0x2F
 
 leonardo.build.mcu=atmega32u4
 leonardo.build.f_cpu=16000000L
-leonardo.build.vid=0x0079
-leonardo.build.pid=0x0006
-leonardo.build.usb_product="Arduino Leonardo"
+leonardo.build.vid=0x0ca3
+leonardo.build.pid=0x0025
+leonardo.build.usb_product="Sega MD Mini to USB converter"
 leonardo.build.board=AVR_LEONARDO
 leonardo.build.core=arduino
 leonardo.build.variant=leonardo

@@ -1,5 +1,9 @@
 // Interface with a 3-button Sega Mega Drive Controller,
 // Converts button presses to USB joystick output
+//   Version 1.2 (See CHANGELOG)
+//   Release date: 2020-06-07
+//
+//   Written & released by W.Bovelander (The Highlander)
 
 #include "joystick.h"
 
@@ -29,7 +33,6 @@ void loop()
 
   // Start by putting SELECT HIGH.
   digitalWrite(selectPin, HIGH);
-  delay(2);
 
   // UP-Button reading
   if (digitalRead(upPin) == LOW) {
@@ -63,7 +66,6 @@ void loop()
 
   // Pull SELECT low
   digitalWrite(selectPin, LOW);
-  delay(2);
 
   // Make all possible readings when SELECT HIGH:
   // START, A
@@ -81,6 +83,6 @@ void loop()
   // update usb data
   Joystick.usb_update();
 
-  // delay 20 ms
+  // delay (ms)
   delay(10);
 }
