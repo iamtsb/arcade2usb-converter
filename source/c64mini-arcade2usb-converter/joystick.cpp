@@ -26,7 +26,7 @@ static const uint8_t _hidReportDescriptor[] PROGMEM = {
     0xa1, 0x02,                 // COLLECTION (Application)
       0x85, JOYSTICK_REPORT_ID, // Report ID
       0x75, 0x08,               // REPORT_SIZE (8)
-      0x95, 0x02,               // REPORT_COUNT (5)
+      0x95, 0x02,               // REPORT_COUNT (2)
       0x26, 0xff, 0x00,         // LOGICAL_MAXIMUM (255)
       0x35, 0x00,               // Physical min (0)
       0x46, 0xff, 0x00,         // Physical max (255)      
