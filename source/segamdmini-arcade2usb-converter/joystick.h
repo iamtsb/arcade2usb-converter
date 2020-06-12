@@ -17,10 +17,10 @@
 #include "HID.h"
 
 // define output bits 
-static const uint8_t A       = 0x4f;
-static const uint8_t B       = 0x2f;
-static const uint8_t START   = 0x20;
-static const uint8_t C       = 0x02;
+static const uint8_t A       = 0x4f; // 0100 1111
+static const uint8_t B       = 0x2f; // 0010 1111
+static const uint8_t START   = 0x20; // 0010 0000
+static const uint8_t C       = 0x02; // 0000 0010
 
 //================================================================================
 //  Joystick
