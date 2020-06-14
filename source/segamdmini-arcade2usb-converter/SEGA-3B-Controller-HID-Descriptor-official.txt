@@ -1,0 +1,50 @@
+Item Tag (Value) Raw Data 
+Usage Page (Generic Desktop) 05 01  
+Usage (Joystick) 09 04  
+Collection (Application) A1 01  
+    Collection (Logical) A1 02  
+        Report Size (8) 75 08  
+        Report Count (5) 95 05  
+        Logical Minimum (0) 15 00  
+        Logical Maximum (255) 26 FF 00  
+        Physical Minimum (0) 35 00  
+        Physical Maximum (255) 46 FF 00  
+        Usage (X) 09 30  
+        Usage (X) 09 30  
+        Usage (X) 09 30  
+        Usage (X) 09 30  
+        Usage (Y) 09 31  
+        Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit) 81 02  
+        Report Size (4) 75 04  
+        Report Count (1) 95 01  
+        Logical Maximum (7) 25 07  
+        Physical Maximum (315) 46 3B 01  
+        Unit (Eng Rot: Degree) 65 14  
+        Usage (Undefined) 09 00  
+        Input (Data,Var,Abs,NWrp,Lin,Pref,Null,Bit) 81 42  
+        Unit (None) 65 00  
+        Report Size (1) 75 01  
+        Report Count (10) 95 0A  
+        Logical Maximum (1) 25 01  
+        Physical Maximum (1) 45 01  
+        Usage Page (Button) 05 09  
+        Usage Minimum (Button 1) 19 01  
+        Usage Maximum (Button 10) 29 0A  
+        Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit) 81 02  
+        Usage Page (Vendor-Defined 1) 06 00 FF  
+        Report Size (1) 75 01  
+        Report Count (10) 95 0A  
+        Logical Maximum (1) 25 01  
+        Physical Maximum (1) 45 01  
+        Usage (Vendor-Defined 1) 09 01  
+        Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit) 81 02  
+    End Collection C0  
+    Collection (Logical) A1 02  
+        Report Size (8) 75 08  
+        Report Count (4) 95 04  
+        Physical Maximum (255) 46 FF 00  
+        Logical Maximum (255) 26 FF 00  
+        Usage (Vendor-Defined 2) 09 02  
+        Output (Data,Var,Abs,NWrp,Lin,Pref,NNul,NVol,Bit) 91 02  
+    End Collection C0  
+End Collection C0 
