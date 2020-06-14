@@ -83,8 +83,6 @@ void loop()
   // update usb data
   Joystick.usb_update();
 
-  digitalWrite(selectPin, HIGH);
-
   // delay (ms)
   delay(10);
 }

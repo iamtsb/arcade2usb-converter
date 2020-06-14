@@ -129,7 +129,7 @@ void Joystick_::usb_update()
 {
   // only send usb data if needed..
   uint8_t m[7];
-   
+
   m[0] = 0x7f;
   m[1] = 0x7f;
   m[2] = _x_axis;
