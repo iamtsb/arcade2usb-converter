@@ -1,0 +1,59 @@
+HID Descriptor Sega MD mini controller
+
+01 f7 f7 f7 f7 0f 00 00
+
+HID Descriptor
+Usage Page: 1 (Generic Desktop Controls)
+Usage: 4 (Joystick)
+Collection 
+Collection 
+Report Size: 8
+Report Count: 5
+Logical Minimum: 0
+Logical Maximum: 255
+Physical Minimum: 0
+Physical Maximum: 255
+Usage: 48 (Direction-X)
+Usage: 48 (Direction-X)
+Usage: 48 (Direction-X)
+Usage: 48 (Direction-X)
+Usage: 49 (Direction-Y)
+Input: 2 (Data,Variable,Absolute,No Wrap,Linear,Preferred State,No Null Position)
+
+Report Size: 4
+Report Count: 1
+Logical Maximum: 7
+Physical Maximum: 315
+Unit: 20
+Usage: 0 (Undefined)
+Input: 66 (Data,Variable,Absolute,No Wrap,Linear,Preferred State,Null State)
+
+Unit: 0
+Report Size: 1
+Report Count: 10
+Logical Maximum: 1
+Physical Maximum: 1
+Usage Page: 9 (Buttons)
+Usages (1-10): Button 1 (Primary), Button 2 (Secondary), Button 3 (Tertiary), Button 4, Button 5, 
+Unknown, Unknown, Unknown, Unknown, Unknown
+Input: 2 (Data,Variable,Absolute,No Wrap,Linear,Preferred State,No Null Position)
+
+Usage Page: 65280 (Vendor Specific)
+Report Size: 1
+Report Count: 10
+Logical Maximum: 1
+Physical Maximum: 1
+Usage: 1 (Unknown)
+Input: 2 (Data,Variable,Absolute,No Wrap,Linear,Preferred State,No Null Position)
+
+End Collection 
+Collection 
+Report Size: 8
+Report Count: 4
+Physical Maximum: 255
+Logical Maximum: 255
+Usage: 2 (Unknown)
+Output: 2 (Data,Variable,Absolute,No Wrap,Linear,Preferred State,No Null Position,Non Volatile)
+
+End Collection 
+End Collection 
