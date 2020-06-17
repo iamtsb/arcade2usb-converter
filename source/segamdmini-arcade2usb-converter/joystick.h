@@ -15,8 +15,9 @@
 #define JOYSTICK_h
 
 #include "HID.h"
-#include "f:/dev/arduino/libraries/HID-Project/src/HID-APIs/GamepadAPI.h"
-#include "f:/dev/arduino/libraries/HID-Project/src/HID-Settings.h"
+#include <HID-Project.h>
+#include <HID-Settings.h>
+#include "HID-APIs/GamepadAPI.h"
 
 // define output bits 
 static const uint8_t A       = 0x4f; // 0100 1111
