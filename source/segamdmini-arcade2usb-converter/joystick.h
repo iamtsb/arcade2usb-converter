@@ -15,6 +15,8 @@
 #define JOYSTICK_h
 
 #include "HID.h"
+#include "f:/dev/arduino/libraries/HID-Project/src/HID-APIs/GamepadAPI.h"
+#include "f:/dev/arduino/libraries/HID-Project/src/HID-Settings.h"
 
 // define output bits 
 static const uint8_t A       = 0x4f; // 0100 1111
@@ -26,7 +28,7 @@ static const uint8_t C       = 0x02; // 0000 0010
 //  Joystick
 //================================================================================
 
-class Joystick_
+class Joystick_ : public PluggableUSBModule, public GamepadAPI
 {
   private:
     uint8_t _buttons = 0x0F;
@@ -47,6 +49,19 @@ class Joystick_
     void button_press(uint8_t b);
     void start_press(uint8_t b);
     void usb_update();
+
+protected:
+    // Implementation of the PUSBListNode
+    int getInterface(uint8_t* interfaceCount);
+    int getDescriptor(USBSetup& setup);
+    bool setup(USBSetup& setup);
+    
+    EPTYPE_DESCRIPTOR_SIZE epType[1];
+    uint8_t protocol;
+    uint8_t idle;
+    
+    virtual void SendReport(void* data, int length) override;
+    
 };
 extern Joystick_ Joystick;
 

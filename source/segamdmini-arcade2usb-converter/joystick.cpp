@@ -22,14 +22,15 @@ static const uint8_t _hidReportDescriptor[] PROGMEM = {
   0x09, 0x04,        /* Usage (Joystick)      */
   0xA1, 0x01,        /* Collection (Application)    */
     0xA1, 0x02,        /*   Collection (Logical)    */
-      0x85, JOYSTICK_REPORT_ID,
+      // 0x85, JOYSTICK_REPORT_ID,
     
       0x75, 0x08,        /*     Report Size (8)   */
-      0x95, 0x04,        /*     Report Count (4)    */
+      0x95, 0x05,        /*     Report Count (5)    */
       0x15, 0x00,         /*    Logical minimum (0) */
       0x26, 0xFF, 0x00,  /*     Logical Maximum (255)   */
       0x35, 0x00,        /*     Physical Minimum (0)    */
       0x46, 0xFF, 0x00,  /*     Physical Maximum (255)  */
+      0x09, 0x30,        /*     Usage (Direction-X)     */      
       0x09, 0x30,        /*     Usage (Direction-X)     */
       0x09, 0x30,        /*     Usage (Direction-X)     */      
       0x09, 0x30,        /*     Usage (Direction-X)     */      
@@ -78,10 +79,84 @@ static const uint8_t _hidReportDescriptor[] PROGMEM = {
 //  Joystick
 //================================================================================
 
-Joystick_::Joystick_(void)
+Joystick_::Joystick_(void): PluggableUSBModule(1, 1, epType), protocol(HID_REPORT_PROTOCOL), idle(1)
 {
-  static HIDSubDescriptor node(_hidReportDescriptor, sizeof(_hidReportDescriptor));
-  HID().AppendDescriptor(&node);
+//  static HIDSubDescriptor node(_hidReportDescriptor, sizeof(_hidReportDescriptor));
+//  HID().AppendDescriptor(&node);
+
+  epType[0] = EP_TYPE_INTERRUPT_IN;
+  PluggableUSB().plug(this);
+    
+}
+
+int Joystick_::getInterface(uint8_t* interfaceCount)
+{
+  *interfaceCount += 1; // uses 1
+  HIDDescriptor hidInterface = {
+    D_INTERFACE(pluggedInterface, 1, USB_DEVICE_CLASS_HUMAN_INTERFACE, HID_SUBCLASS_NONE, HID_PROTOCOL_NONE),
+    D_HIDREPORT(sizeof(_hidReportDescriptor)),
+    D_ENDPOINT(USB_ENDPOINT_IN(pluggedEndpoint), USB_ENDPOINT_TYPE_INTERRUPT, USB_EP_SIZE, 0x01)
+  };
+  return USB_SendControl(0, &hidInterface, sizeof(hidInterface));
+}
+
+int Joystick_::getDescriptor(USBSetup& setup)
+{
+  // Check if this is a HID Class Descriptor request
+  if (setup.bmRequestType != REQUEST_DEVICETOHOST_STANDARD_INTERFACE) { return 0; }
+  if (setup.wValueH != HID_REPORT_DESCRIPTOR_TYPE) { return 0; }
+
+  // In a HID Class Descriptor wIndex cointains the interface number
+  if (setup.wIndex != pluggedInterface) { return 0; }
+
+  // Reset the protocol on reenumeration. Normally the host should not assume the state of the protocol
+  // due to the USB specs, but Windows and Linux just assumes its in report mode.
+  protocol = HID_REPORT_PROTOCOL;
+
+  return USB_SendControl(TRANSFER_PGM, _hidReportDescriptor, sizeof(_hidReportDescriptor));
+}
+
+bool Joystick_::setup(USBSetup& setup)
+{
+  if (pluggedInterface != setup.wIndex) {
+    return false;
+  }
+
+  uint8_t request = setup.bRequest;
+  uint8_t requestType = setup.bmRequestType;
+
+  if (requestType == REQUEST_DEVICETOHOST_CLASS_INTERFACE)
+  {
+    if (request == HID_GET_REPORT) {
+      // TODO: HID_GetReport();
+      return true;
+    }
+    if (request == HID_GET_PROTOCOL) {
+      // TODO: Send8(protocol);
+      return true;
+    }
+  }
+
+  if (requestType == REQUEST_HOSTTODEVICE_CLASS_INTERFACE)
+  {
+    if (request == HID_SET_PROTOCOL) {
+      protocol = setup.wValueL;
+      return true;
+    }
+    if (request == HID_SET_IDLE) {
+      idle = setup.wValueL;
+      return true;
+    }
+    if (request == HID_SET_REPORT)
+    {
+    }
+  }
+
+  return false;
+}
+
+void Joystick_::SendReport(void* data, int length){
+  USB_Send(pluggedEndpoint | TRANSFER_RELEASE, data, length);
 }
 
 void Joystick_::reset(void)
@@ -127,18 +202,19 @@ void Joystick_::start_press(uint8_t b)
 
 void Joystick_::usb_update()
 {
-  // only send usb data if needed..
-  uint8_t m[7];
+  uint8_t m[8];
 
-  m[0] = 0x7f;
-  m[1] = 0x7f;
+  m[0] = 0x01;
+  m[1] = _x_axis;
   m[2] = _x_axis;
-  m[3] = _y_axis;
-  m[4] = _buttons;
-  m[5] = _start_button;
-  m[6] = 0x00;
+  m[3] = _x_axis;
+  m[4] = _y_axis;
+  m[5] = _buttons;
+  m[6] = _start_button;
+  m[7] = 0x00;
 
-  HID().SendReport(JOYSTICK_REPORT_ID, m, sizeof(m));
+ USB_Send(pluggedEndpoint | TRANSFER_RELEASE, m, sizeof(m));
+  // HID().SendReport(JOYSTICK_REPORT_ID, m, sizeof(m));
 }
 
 Joystick_ Joystick;
