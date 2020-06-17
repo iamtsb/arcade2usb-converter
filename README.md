@@ -8,6 +8,8 @@ It will also work under Windows/linux with Vice
 
 See change log for history.
 
+The repository also includes designs for a case to be 3D printed, as well as some Windows based tools used during debugging and development.
+
 
 Documentation
 =============
