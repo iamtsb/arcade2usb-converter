@@ -1,0 +1,265 @@
+setenv console ${console} ramfs
+boot
+
+insmod /lib/modules/3.4.39/nand.ko
+mount /dev/nandb /mnt
+mount /dev/sda1 /mnt/tmp/tt
+cd /mnt/usr/share/the64/ui/data/
+cp /mnt/tmp/tt/gamecontrollerdb.txt ./gamecontrollerdb.txt
+cd /
+umount /mnt/tmp/tt
+umount /mnt
+reboot -fd0
+
+working predefined sticks
+=========================
+
+030000009b2800000300000001010000,raphnet.net 4nes4snes v1.5,a:b0,b:b4,back:b2,leftshoulder:b6,leftx:a0,lefty:a1,rightshoulder:b7,start:b3,x:b1,y:b5,platform:Linux,
+vid=0x289b
+pid=0x0003
+button1=0x80 (fire)
+button8=0x8 (menu)
+
+
+0300000032150000030a000001010000,Razer Wildcat,a:b0,b:b1,back:b6,dpdown:h0.4,dpleft:h0.8,dpright:h0.2,dpup:h0.1,guide:b8,leftshoulder:b4,leftstick:b9,lefttrigger:a2,leftx:a0,lefty:a1,rightshoulder:b5,rightstick:b10,righttrigger:a5,rightx:a3,righty:a4,start:b7,x:b2,y:b3,platform:Linux,
+vid=0x1532
+pid=0x0a03
+button1=0x20 (fire)
+button8=0x80 (menu)
+
+
+change boards.txt
+=================
+file: c:\Users\[username]\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.6.21\boards.txt
+
+Changes for Razer Wildcat device
+------------------------------------------------------------------------
+leonardo.build.vid=0x1532
+leonardo.build.pid=0x0a03
+leonardo.build.usb_product="Arcade to Mini64"
+------------------------------------------------------------------------
+
+Changes for Raphnet.net 4nes4snes
+------------------------------------------------------------------------
+leonardo.build.vid=0x289b 
+leonardo.build.pid=0x0003
+leonardo.build.usb_product="Arcade to Mini64"
+------------------------------------------------------------------------
+
+Original lines
+------------------------------------------------------------------------
+leonardo.build.vid=0x2341
+leonardo.build.pid=0x8036 
+leonardo.build.usb_product="Arduino Leonardo"
+------------------------------------------------------------------------
+
+
+
+---
+
+bootloader: https://www.coreforge.com/blog/2014/09/recovering-arduino-pro-micro-atmega32u4/
+
+0003:1C59:0023.0003
+
+
+---
+
+03000000412300003680000001010000,Arduino LLC Arduino Leonardo,a:b0,b:b1,back:b8,dpdown:h0.4,dpleft:h0.8,dpright:h0.2,dpup:h0.1,leftshoulder:b6,leftstick:b10,lefttrigger:b4,leftx:a0,lefty:a1,rightshoulder:b7,rightstick:b11,righttrigger:b5,rightx:a3,righty:a2,start:b9,x:b3,y:b0,platform:Linux,
+joystick assignment used from c64mini joystick: a:b0,b:b1,back:b8,dpdown:h0.4,dpleft:h0.8,dpright:h0.2,dpup:h0.1,leftshoulder:b6,leftstick:b10,lefttrigger:b4,leftx:a0,lefty:a1,rightshoulder:b7,rightstick:b11,righttrigger:b5,rightx:a3,righty:a2,start:b9,x:b3,y:b0,platform:Linux,
+
+--
+
+Arduino leonardo:
+=================
+0003:2341:8036.0002
+aabb:ccdd:eeff:gghh
+
+bbaa0000 ddcc0000 ffee0000 hhgg0000
+03000000412300003680000002000000
+
+
+the64
+=====
+0003:1C59:0023.0001
+aabb:ccdd:eeff:gghh
+
+bbaa0000 ddcc0000 ffee0000 hhgg0000 
+03000000 591c0000 23000000 10010000
+03000000 591c
+
+
+
+========================================================================================================================================================================================================================================================================================================================================================================
+USB Descriptor - Working - based on C64 Mini joystick
+========================================================================================================================================================================================================================================================================================================================================================================
+
+static const uint8_t _hidReportDescriptor[] PROGMEM = {
+
+// Joystick
+  
+  0x05, 0x01,           // USAGE_PAGE (Generic Desktop)
+  0x09, 0x04,           // USAGE (Joystick)
+  0xa1, 0x01,           // COLLECTION (Application)
+    0xa1, 0x02,           // COLLECTION (Application)
+      0x75, 0x08,           // REPORT_SIZE (8)
+      0x95, 0x02,           // REPORT_COUNT (5)
+      0x26, 0xff, 0x00,     // LOGICAL_MAXIMUM (255)
+      0x35, 0x00,           // Physical min (0)
+      0x46, 0xff, 0x00,     // Physical max (255)      
+      0x09, 0x30,             //     USAGE (x)
+      0x09, 0x31,             //     USAGE (y)
+      0x81, 0x02,           // Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit)
+
+      /*0x95, 0x03,           // REPORT_COUNT (1)
+      0x81, 0x01,           // Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit)
+
+      0x75, 0x01,           // REPORT_SIZE (8)
+      0x95, 0x04,           // REPORT_COUNT (1)
+      0x15, 0x00,           //   LOGICAL_MINIMUM (0)
+      0x25, 0x01,           //   LOGICAL_MAXIMUM (1)
+      0x35, 0x00,           // Physical min (0)
+      0x45, 0x01,           //   Physical_MAXIMUM (1)
+      0x81, 0x01,           // Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit)
+      */
+      0x65, 0x00,           // Unit (none)
+      0x75, 0x01,           // REPORT_SIZE (4)
+      0x95, 0x08,           // REPORT_COUNT (1)
+      0x25, 0x01,           //   LOGICAL_MAXIMUM (1)
+      0x45, 0x01,           //   Physical_MAXIMUM (1)
+      0x05, 0x09,           //   USAGE_PAGE (Button)
+      0x19, 0x01,           //   USAGE_MINIMUM (Button 1)
+      0x29, 0x08,           //   USAGE_MAXIMUM (Button 8)
+      0x81, 0x02,           // Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit)
+      
+
+      // Vendor-defined 1
+      0x06, 0x00, 0xff,     // Usage page (Vendor-Defined 1)
+      0x75, 0x01,           // REPORT_SIZE (1)
+      0x95, 0x08,           // REPORT_COUNT (8)
+      0x25, 0x01,           // Logical max (255)
+      0x45, 0x01,           // Physical max (255)
+      0x09, 0x01,           // Usage (Vendor-Defined 1)
+      0x81, 0x02,           // Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit)
+
+      /*0x75, 0x08,           // REPORT_SIZE (8)
+      0x95, 0x07,           // REPORT_COUNT (7)
+      0x46, 0xff, 0x00,     // Physical max (255)
+      0x26, 0xff, 0x00,     // Logical max (255)
+      0x09, 0x02,           // Usage (Vendor-Defined 2)
+      0x91, 0x02,           // Output (Data,Var,Abs,NWrp,Lin,Pref,NNul,NVol,Bit)
+*/
+    0xc0,             //   END_COLLECTION
+    //0xa1, 0x02,             // Collection (Logical)
+    //0x0c,                   // END_COLLECTION
+   
+  0xc0              // END_COLLECTION
+};
+
+
+========================================================================================================================================================================================================================================================================================================================================================================
+USB Descriptor - C64 Mini joystick
+========================================================================================================================================================================================================================================================================================================================================================================
+Usage Page (Generic Desktop) 05 01  
+Usage (Joystick) 09 04  
+Collection (Application) A1 01  
+    Collection (Logical) A1 02  
+        Report Size (8) 75 08  
+        Report Count (5) 95 05  
+        Logical Minimum (0) 15 00  
+        Logical Maximum (255) 26 FF 00  
+        Physical Minimum (0) 35 00  
+        Physical Maximum (255) 46 FF 00  
+        Usage (X) 09 30  
+        Usage (Y) 09 31  
+        Usage (Y) 09 31  
+        Usage (Y) 09 31  
+        Usage (Y) 09 31  
+        Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit) 81 02  
+		
+        Report Size (4) 75 04  
+        Report Count (1) 95 01  
+        Input (Cnst,Ary,Abs) 81 01  
+		
+        Report Size (1) 75 01  
+        Report Count (12) 95 0C  
+        Logical Maximum (1) 25 01  
+        Physical Maximum (1) 45 01  
+        Usage Page (Button) 05 09  
+        Usage Minimum (Button 1) 19 01  
+        Usage Maximum (Button 8) 29 08  
+        Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit) 81 02
+		
+        Usage Page (Vendor-Defined 1) 06 00 FF  
+        Report Size (1) 75 01  
+        Report Count (8) 95 08  
+        Logical Maximum (1) 25 01  
+        Physical Maximum (1) 45 01  
+        Usage (Vendor-Defined 1) 09 01  
+        Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit) 81 02  
+		
+    End Collection C0  
+    Collection (Logical) A1 02  
+        Report Size (8) 75 08  
+        Report Count (7) 95 07  
+        Physical Maximum (255) 46 FF 00  
+        Logical Maximum (255) 26 FF 00  
+        Usage (Vendor-Defined 2) 09 02  
+        Output (Data,Var,Abs,NWrp,Lin,Pref,NNul,NVol,Bit) 91 02  
+    End Collection C0  
+End Collection C0
+
+========================================================================================================================================================================================================================================================================================================================================================================
+USB Descriptor - SNES USB
+========================================================================================================================================================================================================================================================================================================================================================================
+Usage Page (Generic Desktop) 05 01  
+Usage (Joystick) 09 04  
+Collection (Application) A1 01  
+    Collection (Logical) A1 02  
+        Report Size (8) 75 08  
+        Report Count (2) 95 02  
+        Logical Minimum (0) 15 00  
+        Logical Maximum (255) 26 FF 00  
+        Physical Minimum (0) 35 00  
+        Physical Maximum (255) 46 FF 00  
+        Usage (X) 09 30  
+        Usage (Y) 09 31  
+        Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit) 81 02  
+		
+        Report Count (3) 95 03  
+        Input (Cnst,Ary,Abs) 81 01  
+		
+        Report Size (1) 75 01  
+        Report Count (4) 95 04  
+        Logical Minimum (0) 15 00  
+        Logical Maximum (1) 25 01  
+        Physical Minimum (0) 35 00  
+        Physical Maximum (1) 45 01  
+        Input (Cnst,Ary,Abs) 81 01  
+		
+        Unit (None) 65 00  
+        Report Size (1) 75 01  
+        Report Count (10) 95 0A  
+        Logical Maximum (1) 25 01  
+        Physical Maximum (1) 45 01  
+        Usage Page (Button) 05 09  
+        Usage Minimum (Button 1) 19 01  
+        Usage Maximum (Button 10) 29 0A  
+        Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit) 81 02  
+		
+        Usage Page (Vendor-Defined 1) 06 00 FF  
+        Report Size (1) 75 01  
+        Report Count (10) 95 0A  
+        Logical Maximum (1) 25 01  
+        Physical Maximum (1) 45 01  
+        Usage (Vendor-Defined 1) 09 01  
+        Input (Data,Var,Abs,NWrp,Lin,Pref,NNul,Bit) 81 02  
+    End Collection C0  
+    Collection (Logical) A1 02  
+        Report Size (8) 75 08  
+        Report Count (7) 95 07  
+        Physical Maximum (255) 46 FF 00  
+        Logical Maximum (255) 26 FF 00  
+        Usage (Vendor-Defined 2) 09 02  
+        Output (Data,Var,Abs,NWrp,Lin,Pref,NNul,NVol,Bit) 91 02  
+    End Collection C0  
+End Collection C0  
